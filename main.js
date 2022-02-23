@@ -34,14 +34,17 @@ let input = document.getElementById( 'todoInputField' );
 let form = document.getElementById( 'todoForm' );
 
 // Set up count to name list items.
-if ( typeof localStorage.getItem( 'count' ) === undefined ) {
+if ( localStorage.getItem( 'count' ) === null ) {
     var count = 0
-}
-
-for ( let i = 0; i < localStorage.getItem( count ) + 1; i++ ) {
-    let li = localStorage.getItem( i )
-    todoListElement.appendChild( li )
-}
+} else {
+    for ( let i = 0; i < parseInt(localStorage.getItem( 'count' )) + 1; i++ ) {
+        let li = localStorage.getItem( i )
+        let el = document.createElement('li')
+        el.classList.add('list-group-item')
+        el.innerText = li
+        createEvents( el );
+        todoListElement.appendChild( el )
+} }
 
 form.addEventListener( 'submit', ( e ) => {
     // prevent page refresh
@@ -61,7 +64,7 @@ form.addEventListener( 'submit', ( e ) => {
     createEvents( li );
 
     // add li to local storage
-    localStorage.setItem( count, li )
+    localStorage.setItem( count, li.innerText )
 
     // get ready for next list item and set to localStorage
     count++
