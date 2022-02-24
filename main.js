@@ -35,7 +35,7 @@ let form = document.getElementById( 'todoForm' );
 
 // Set up count to name list items.
 if ( localStorage.getItem( 'count' ) === null ) {
-    var count = 0
+    localStorage.setItem( 'count', 0 )
 } else {
     for ( let i = 0; i < parseInt(localStorage.getItem( 'count' )) + 1; i++ ) {
         let li = localStorage.getItem( i )
@@ -64,11 +64,10 @@ form.addEventListener( 'submit', ( e ) => {
     createEvents( li );
 
     // add li to local storage
-    localStorage.setItem( count, li.innerText )
+    localStorage.setItem( localStorage.getItem( 'count' ), li.innerText )
 
     // get ready for next list item and set to localStorage
-    count++
-    localStorage.setItem( 'count', count )
+    localStorage.setItem( 'count', parseInt(localStorage.getItem( 'count' )) + 1 )
 
     // add the item into the unordered list
     todoListElement.appendChild(li);
@@ -81,8 +80,8 @@ let clearButton = document.getElementById( 'clearButton' )
 
 clearButton.addEventListener( 'click', () => {
         todoListElement.innerHTML = ""
-        for (let i = 0; i < localStorage.getItem( count ) + 1; i++ ) {
+        for (let i = 0; i < localStorage.getItem( 'count' ) + 1; i++ ) {
             localStorage.removeItem( i )
         }
-        count = 0
+        localStorage.setItem( 'count', 0 )
     } )
