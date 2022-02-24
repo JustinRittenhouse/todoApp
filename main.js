@@ -37,7 +37,7 @@ let form = document.getElementById( 'todoForm' );
 if ( localStorage.getItem( 'count' ) === null ) {
     localStorage.setItem( 'count', 0 )
 } else {
-    for ( let i = 0; i < parseInt(localStorage.getItem( 'count' )) + 1; i++ ) {
+    for ( let i = 0; i < parseInt(localStorage.getItem( 'count' )); i++ ) {
         let li = localStorage.getItem( i )
         let el = document.createElement('li')
         el.classList.add('list-group-item')
@@ -80,8 +80,10 @@ let clearButton = document.getElementById( 'clearButton' )
 
 clearButton.addEventListener( 'click', () => {
         todoListElement.innerHTML = ""
-        for (let i = 0; i < localStorage.getItem( 'count' ) + 1; i++ ) {
-            localStorage.removeItem( i )
-        }
+        // for (let i = 0; i < localStorage.getItem( 'count' ) + 1; i++ ) {
+        //     localStorage.removeItem( i )
+        // }
+        // Clear is a lot more simple for this.
+        localStorage.clear()
         localStorage.setItem( 'count', 0 )
     } )
